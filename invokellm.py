@@ -1,7 +1,14 @@
 from langchain_community.llms import Ollama
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.panel import Panel
+
+console = Console()
 
 llm = Ollama(model="llama3")
 
-response = llm.invoke("How many bits in a byte?")
+question = Prompt.ask(f"[bold blue]{llm.model}[/bold blue]. Please type question below")
 
-print(response)
+response = llm.invoke(question)
+
+console.print(Panel(response, title="Response"))
